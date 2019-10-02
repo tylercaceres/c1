@@ -6,17 +6,15 @@ on:
     - master
 
 jobs:
-  test:
-    name: npm install, build and test
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      - name: wait wurt
-        run: |
-          echo npm install
-          npm install
-          echo npm run build
-          npm run build
-          echo npm test
-          npm test
-          
-          
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
