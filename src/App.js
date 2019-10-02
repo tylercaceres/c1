@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Testing Testing 123 - Tyler Caceres</h1>
+      <h1>Testing 123 - Tyler Caceres</h1>
       <button onClick={getData1}>get data btn</button>
       {content}
     </div>
