@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
 
-function App() {
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([]);
+  const getData1 = async () => {
+    try {
+      const data = await axios.get("https://jsonplaceholder.typicode.com/comments");
+      setLoading(false);
+      setComments(data.data);
+    } catch (error) {
+      console.log("error : ", error);
+    }
+  };
+
+  const commentMap = comments.map((comment) => {
+    return (
+      <ul style={{ border: "5px solid red" }} key={comment.id}>
+        <li>Post ID: {comment.postId}</li>
+        <li>Name: {comment.name}</li>
+        <li>Email: {comment.email}</li>
+        <li>Body: {comment.body}</li>
+      </ul>
+    );
+  });
+
+  const content = loading ? <p>loading ...</p> : commentMap;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={getData1}>get data btn</button>
+      {content}
     </div>
   );
-}
+};
 
 export default App;
