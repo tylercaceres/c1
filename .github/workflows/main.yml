@@ -7,14 +7,13 @@ on:
 
 jobs:
   test:
-    name: run test
+    name: npm install, build and test
     runs-on: ubuntu-latest
     steps:
       - name: wait wurt
         run: |
-          echo so sad...
-          echo hello, world
           npm install
+          npm run build
           npm test
           
           
