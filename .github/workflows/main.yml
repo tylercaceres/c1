@@ -12,8 +12,11 @@ jobs:
     steps:
       - name: wait wurt
         run: |
+          echo npm install
           npm install
+          echo npm run build
           npm run build
+          echo npm test
           npm test
           
           
