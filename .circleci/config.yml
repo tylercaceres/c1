@@ -42,10 +42,12 @@ workflows:
       - build:
           filters:
             branches:
-              ignore: production
+              only: master
+              # ignore: production
       - deploy:
           filters:
             branches:
-              ignore: production
+              only: master
+            #  ignore: production
           requires:
             - build
