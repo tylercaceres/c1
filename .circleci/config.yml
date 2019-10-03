@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Push Master to Staging
           command: |
-            git push https://github.com/gigeco/client.git master:staging
+            git push https://github.com/tylercaceres/c1.git master:staging
 
   deploy_production:
     machine:
@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Push Staging to Production
           command: |
-            git push https://github.com/gigeco/client.git staging:production
+            git push https://github.com/tylercaceres/c1.git staging:production
 
 workflows:
   version: 2
@@ -69,7 +69,8 @@ workflows:
             #  ignore: production
           requires:
             - build
-      - deploy_staging:
+
+      - deploy_production:
           filters:
             branches:
               only: staging
