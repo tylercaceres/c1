@@ -19,7 +19,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
 
-  deploy:
+  deploy_staging:
     machine:
       enabled: true
 
@@ -31,9 +31,25 @@ jobs:
             - "e8:0f:9a:ac:5a:33:13:cc:fc:b0:a4:73:56:23:da:b7"
       - checkout
       - run:
-          name: Push Master to Production
+          name: Push Master to Staging
           command: |
-            git push https://github.com/tylercaceres/c1.git master:production
+            git push https://github.com/gigeco/client.git master:staging
+
+  deploy_production:
+    machine:
+      enabled: true
+
+    working_directory: ~/client
+
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "e8:0f:9a:ac:5a:33:13:cc:fc:b0:a4:73:56:23:da:b7"
+      - checkout
+      - run:
+          name: Push Staging to Production
+          command: |
+            git push https://github.com/gigeco/client.git staging:production
 
 workflows:
   version: 2
@@ -42,12 +58,21 @@ workflows:
       - build:
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - staging
               # ignore: production
-      - deploy:
+      - deploy_staging:
           filters:
             branches:
               only: master
+            #  ignore: production
+          requires:
+            - build
+      - deploy_staging:
+          filters:
+            branches:
+              only: staging
             #  ignore: production
           requires:
             - build
